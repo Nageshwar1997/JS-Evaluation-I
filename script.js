@@ -50,14 +50,13 @@ function renderEmployees(employees) {
   updatePaginationButtons();
 }
 
-departmentFilter.addEventListener("change", applyFilters);
+departmentFilter.addEventListener("change", sortbyDepartment);
 genderFilter.addEventListener("change", applyFilters);
 sortSelect.addEventListener("change", applySort);
 prevPageBtn.addEventListener("click", goPrevPage);
 nextPageBtn.addEventListener("click", goNextPage);
 
 function applyFilters() {
-  let selectedDepartment = departmentFilter.value;
   let selectedGender = genderFilter.value;
 
   //   console.log(selectedGender);
@@ -69,7 +68,15 @@ function applyFilters() {
     );
   });
 
+  renderEmployees(filteredEmployees);
   applySort();
+}
+
+function sortbyDepartment() {
+  let selectedDepartment = departmentFilter.value;
+  filteredEmployees = filteredEmployees.filter((employee) => {
+    return !selectedDepartment || employee.department == selectedDepartment;
+  });
   renderEmployees(filteredEmployees);
 }
 
