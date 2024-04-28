@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title></title>
+</head>
+
+<body>
+    <div>
+        <div id="header"></div>
+        <h1>Employee Management System</h1>
+        <div id="filters">
+            <div>
+                <label for="department-filter">Filter by Department</label>
+                <select id="department-filter">
+                    <option value="">Select Department</option>
+                    <option value="hr">hr</option>
+                    <option value="finance">finance</option>
+                    <option value="marketing">marketing</option>
+                    <option value="engineering">engineering</option>
+                    <option value="operations">operations</option>
+                </select>
+            </div>
+            <div>
+                <label for="gender-filter">Filter by Gender</label>
+                <select id="gender-filter">
+                    <option value="">Select Gender</option>
+                    <option value="male">male</option>
+                    <option value="female">female</option>
+                    <option value="others">others</option>
+                </select>
+            </div>
+            <div>
+                <label for="sort">Sort by Salary</label>
+                <select id="sort">
+                    <option value="">Select Order</option>
+                    <option value="asc">Low to High</option>
+                    <option value="desc">High to Low</option>
+                </select>
+            </div>
+        </div>
+        <div id="main">
+            <table>
+                <thead>
+                    <tr>
+                        <th>S.No</th>
+                        <th>Name</th>
+                        <th>Gender</th>
+                        <th>Department</th>
+                        <th>Salary</th>
+                    </tr>
+                </thead>
+                <tbody id="employee-data">
+                    <!-- Employee data will be rendered here -->
+                </tbody>
+            </table>
+            <div id="pagination">
+                <button id="prev-page">Previous</button>
+                <span id="page-number">Page 1</span>
+                <button id="next-page">Next</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="script.js"></script>
+
+</html>
