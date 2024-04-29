@@ -1,9 +1,11 @@
+// Declaring global variables
 let baseURL = `https://dbioz2ek0e.execute-api.ap-south-1.amazonaws.com/mockapi/get-employees`;
 let currentPage = 1;
 let perPage = 10;
 let filteredEmployees = [];
 let totalPages = 1;
 
+// DOM elements
 let departmentFilter = document.getElementById("department-filter");
 let genderFilter = document.getElementById("gender-filter");
 let sortSelect = document.getElementById("sort");
@@ -12,6 +14,7 @@ let nextPageBtn = document.getElementById("next-page");
 let pageNumber = document.getElementById("page-number");
 let tbody = document.getElementById("employee-data");
 
+// Fetches employees from the API
 function fetchEmployees() {
   let url = `${baseURL}?page=${currentPage}&limit=${perPage}`;
   fetch(url)
@@ -19,11 +22,11 @@ function fetchEmployees() {
       return resp.json();
     })
     .then((data) => {
-      // console.log(data.data);
+      // Store fetched data
       filteredEmployees = data.data;
       totalPages = data.totalPages;
-      //   console.log(totalPages);
 
+      // Render the fetched employees
       renderEmployees(filteredEmployees);
     })
     .catch((err) => {
@@ -31,6 +34,7 @@ function fetchEmployees() {
     });
 }
 
+// Renders the employees on the table
 function renderEmployees(employees) {
   tbody.innerHTML = null;
 
@@ -47,18 +51,20 @@ function renderEmployees(employees) {
 
     tbody.innerHTML += row;
   });
+  // Update pagination buttons
   updatePaginationButtons();
 }
 
+// Event listeners for filters and pagination buttons
 departmentFilter.addEventListener("change", sortbyDepartment);
 genderFilter.addEventListener("change", applyFilters);
 sortSelect.addEventListener("change", applySort);
 prevPageBtn.addEventListener("click", goPrevPage);
 nextPageBtn.addEventListener("click", goNextPage);
 
+// Filter employees based on selected gender
 function applyFilters() {
   let selectedGender = genderFilter.value;
-
 
   filteredEmployees = filteredEmployees.filter((employee) => {
     return (
@@ -71,6 +77,7 @@ function applyFilters() {
   applySort();
 }
 
+// Filter employees by department
 function sortbyDepartment() {
   let selectedDepartment = departmentFilter.value;
   filteredEmployees = filteredEmployees.filter((employee) => {
@@ -79,6 +86,7 @@ function sortbyDepartment() {
   renderEmployees(filteredEmployees);
 }
 
+// Apply sorting to employees based on salary
 function applySort() {
   let sortOrder = sortSelect.value;
 
@@ -89,6 +97,7 @@ function applySort() {
   renderEmployees(filteredEmployees);
 }
 
+// Go to the previous page
 function goPrevPage() {
   if (currentPage > 1) {
     currentPage--;
@@ -96,6 +105,7 @@ function goPrevPage() {
   fetchEmployees();
 }
 
+// Go to the next page
 function goNextPage() {
   if (currentPage < totalPages) {
     currentPage++;
@@ -103,10 +113,12 @@ function goNextPage() {
   fetchEmployees();
 }
 
+// Update pagination buttons state
 function updatePaginationButtons() {
   prevPageBtn.disabled = currentPage == 1;
   nextPageBtn.disabled = currentPage == totalPages;
   pageNumber.textContent = `Page ${currentPage}`;
 }
 
+// Initial fetch of employees
 fetchEmployees();
