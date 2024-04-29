@@ -59,7 +59,6 @@ nextPageBtn.addEventListener("click", goNextPage);
 function applyFilters() {
   let selectedGender = genderFilter.value;
 
-  //   console.log(selectedGender);
 
   filteredEmployees = filteredEmployees.filter((employee) => {
     return (
